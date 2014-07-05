@@ -1,0 +1,19 @@
+{
+  "name": "fftw",
+  "version": "0.0.0",
+  "description": "fftw bindings for node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fft",
+    "fftw"
+  ],
+  "author": "Mike Atkins <apeherder@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^1.2.0"
+  }
+  "gypfile": true
+}
