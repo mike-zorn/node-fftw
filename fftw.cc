@@ -29,7 +29,13 @@ class Dft1dWorker : public NanAsyncWorker {
   void HandleOKCallback () {
     NanScope();
 
-    callback->Call(0, NULL);
+    Local<Array> result = NanNew<Array>(this->size);
+
+    for(int i = 0; i< size; i++) {
+      result->Set(i, NanNew<Number>(out[i][0]));
+    }
+    Handle<Value> arguments [2] = { Null(), result };
+    callback->Call(2, arguments);
   }
 
  private:
@@ -49,6 +55,10 @@ NAN_METHOD(Dft1d) {
   int size = data->Length();
   fftw_complex* input = (fftw_complex*) 
     fftw_malloc(sizeof(fftw_complex) * size);
+
+  for(int i = 0; i < size; i++) {
+    input[i][0] = data->Get(i).As<Number>()->Value();
+  }
 
   Dft1dWorker* worker = new Dft1dWorker(nanCallback, size, input);
   
