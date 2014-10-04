@@ -1,5 +1,6 @@
 #include <nan.h>
 #include <fftw3.h>
+#include "complex.h"
 
 using namespace v8;
 
@@ -32,7 +33,11 @@ class Dft1dWorker : public NanAsyncWorker {
     Local<Array> result = NanNew<Array>(this->size);
 
     for(int i = 0; i< size; i++) {
-      result->Set(i, NanNew<Number>(out[i][0]));
+      result->Set(i, Complex::NewInstance(
+            NanNew<Number>(out[i][0]),
+            NanNew<Number>(out[i][1])
+          )
+      );
     }
     Handle<Value> arguments [2] = { Null(), result };
     callback->Call(2, arguments);

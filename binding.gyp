@@ -2,7 +2,7 @@
   "targets": [
     {
       "target_name": "fftw",
-      "sources": [ "fftw.cc" ],
+      "sources": [ "src/fftw.cc", "src/complex.cc" ],
       "include_dirs" : [
         "<!(node -e \"require('nan')\")"
       ],
