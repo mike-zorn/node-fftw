@@ -44,26 +44,26 @@ NAN_METHOD(Complex::New) {
   NanScope();
 
   Complex* complex = new Complex(
-      args[0].As<Number>()->Value(), 
-      args[1].As<Number>()->Value()
+      args[0].As<v8::Number>()->Value(), 
+      args[1].As<v8::Number>()->Value()
   );
   complex->Wrap(args.This());
 
   NanReturnValue(args.This());
 }
 
-NAN_GETTER(Complex::Real) {
+NAN_METHOD(Complex::Real) {
   NanScope();
 
   Complex* complex = ObjectWrap::Unwrap<Complex>(args.Holder());
 
-  NanReturnValue(NanNew<Number>(complex->real));
+  NanReturnValue(NanNew<v8::Number>(complex->real));
 }
 
-NAN_GETTER(Complex::Imag) {
+NAN_METHOD(Complex::Imag) {
   NanScope();
 
   Complex* complex = ObjectWrap::Unwrap<Complex>(args.Holder());
 
-  NanReturnValue(NanNew<Number>(complex->real));
+  NanReturnValue(NanNew<v8::Number>(complex->imag));
 }
