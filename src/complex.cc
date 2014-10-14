@@ -18,8 +18,9 @@ void Complex::Init() {
   NanAssignPersistent(complex_constructor, tpl);
   tpl->SetClassName(NanNew("Complex"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
-  NODE_SET_PROTOTYPE_METHOD(tpl, "real", Complex::Real);
-  NODE_SET_PROTOTYPE_METHOD(tpl, "imag", Complex::Imag);
+  v8::Local<v8::ObjectTemplate> proto = tpl->PrototypeTemplate();
+  proto->SetAccessor(NanNew<v8::String>("real"), Complex::Real);
+  proto->SetAccessor(NanNew<v8::String>("imag"), Complex::Imag);
 }
 
 v8::Handle<v8::Value> Complex::NewInstance(
@@ -51,18 +52,18 @@ NAN_METHOD(Complex::New) {
   NanReturnValue(args.This());
 }
 
-NAN_METHOD(Complex::Real) {
+NAN_GETTER(Complex::Real) {
   NanScope();
 
-  Complex* complex = ObjectWrap::Unwrap<Complex>(args.Holder());
+  Complex* complex = ObjectWrap::Unwrap<Complex>(args.This());
 
   NanReturnValue(NanNew<v8::Number>(complex->real));
 }
 
-NAN_METHOD(Complex::Imag) {
+NAN_GETTER(Complex::Imag) {
   NanScope();
 
-  Complex* complex = ObjectWrap::Unwrap<Complex>(args.Holder());
+  Complex* complex = ObjectWrap::Unwrap<Complex>(args.This());
 
   NanReturnValue(NanNew<v8::Number>(complex->imag));
 }
