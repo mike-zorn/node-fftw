@@ -2,6 +2,7 @@
 #include <fftw3.h>
 #include "complex.h"
 #include "fft_worker_1d.h"
+#include "ifft_worker_1d.h"
 
 using namespace v8;
 
@@ -44,7 +45,7 @@ NAN_METHOD(Idft1d) {
     input[i][0] = data->Get(i).As<Number>()->Value();
   }
 
-  FftWorker1d* worker = new FftWorker1d(nanCallback, size, input);
+  IfftWorker1d* worker = new IfftWorker1d(nanCallback, size, input);
   
   NanAsyncQueueWorker(worker);
 

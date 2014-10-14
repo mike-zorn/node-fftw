@@ -1,6 +1,6 @@
 #include <nan.h>
 #include <fftw3.h>
-#include "fft_worker_1d.h"
+#include "ifft_worker_1d.h"
 
 IfftWorker1d::IfftWorker1d(NanCallback *callback, int size, fftw_complex* in)
   : FftWorker(callback, size, in) { }

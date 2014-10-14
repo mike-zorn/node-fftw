@@ -10,7 +10,7 @@ test('1d dft all ones', function(t) {
 });
 
 test('1d idft one 1', function(t) {
-  t.plan(1);
+  t.plan(2);
 
   fftw.idft_1d([1, 0, 0, 0], function(err, result) {
     t.equal(result[0].real, 1);
