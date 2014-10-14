@@ -29,13 +29,12 @@ v8::Handle<v8::Value> Complex::NewInstance(
 
   NanEscapableScope();
 
-  v8::Local<v8::Object> instance;
-
   v8::Local<v8::FunctionTemplate> constructorHandle =
       NanNew<v8::FunctionTemplate>(complex_constructor);
 
   v8::Handle<v8::Value> argv[2] = { real, imag };
-  instance = constructorHandle->GetFunction()->NewInstance(2, argv);
+  v8::Local<v8::Object> instance = 
+      constructorHandle->GetFunction()->NewInstance(2, argv);
 
   return NanEscapeScope(instance);
 }

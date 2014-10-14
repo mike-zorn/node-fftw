@@ -73,6 +73,8 @@ NAN_METHOD(Dft1d) {
 }
 
 void Init(Handle<Object> exports) {
+  Complex::Init();
+
   exports->Set(NanNew("dft_1d"), NanNew<FunctionTemplate>(Dft1d)->GetFunction());
 }
 
