@@ -4,7 +4,7 @@
   "description": "fftw bindings for node.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test"
   },
   "keywords": [
     "fft",
@@ -16,5 +16,8 @@
     "bindings": "^1.2.1",
     "nan": "^1.2.0"
   },
-  "gypfile": true
+  "gypfile": true,
+  "devDependencies": {
+    "tape": "^3.0.0"
+  }
 }

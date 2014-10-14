@@ -1,7 +1,10 @@
 var fftw = require('./index');
+var test = require('tape');
 
-fftw.dft_1d([1, 1, 1, 1], function(err, vals) {
-  vals.forEach(function(val) {
-    console.log(val.real, val.imag);
+test('1d dft all ones', function(t) {
+  t.plan(1);
+
+  fftw.dft_1d([1, 1, 1, 1], function(err, result) {
+    t.equal(result[0].real, 4);
   });
 });
