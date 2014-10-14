@@ -1,53 +1,9 @@
 #include <nan.h>
 #include <fftw3.h>
 #include "complex.h"
+#include "fft_worker_1d.h"
 
 using namespace v8;
-
-class Dft1dWorker : public NanAsyncWorker {
- public:
-  Dft1dWorker(NanCallback *callback, int size, fftw_complex* in)
-    : NanAsyncWorker(callback), size(size), in(in) {
-    this->out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * size);
-  }
-  ~Dft1dWorker() {
-    fftw_free(this->in);
-    fftw_free(this->out);
-  }
-
-  void Execute () {
-    fftw_plan plan = fftw_plan_dft_1d(
-        this->size, 
-        this->in, 
-        this->out, 
-        FFTW_FORWARD, 
-        FFTW_ESTIMATE);
-
-    fftw_execute(plan);
-    fftw_destroy_plan(plan);
-  }
-
-  void HandleOKCallback () {
-    NanScope();
-
-    Local<Array> result = NanNew<Array>(this->size);
-
-    for(int i = 0; i< size; i++) {
-      result->Set(i, Complex::NewInstance(
-            NanNew<Number>(out[i][0]),
-            NanNew<Number>(out[i][1])
-          )
-      );
-    }
-    Handle<Value> arguments [2] = { Null(), result };
-    callback->Call(2, arguments);
-  }
-
- private:
-  int size;
-  fftw_complex* in;
-  fftw_complex* out;
-};
 
 NAN_METHOD(Dft1d) {
   NanScope();
@@ -65,7 +21,7 @@ NAN_METHOD(Dft1d) {
     input[i][0] = data->Get(i).As<Number>()->Value();
   }
 
-  Dft1dWorker* worker = new Dft1dWorker(nanCallback, size, input);
+  FftWorker1d* worker = new FftWorker1d(nanCallback, size, input);
   
   NanAsyncQueueWorker(worker);
 
