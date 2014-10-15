@@ -17,3 +17,15 @@ test('1d idft one 1', function(t) {
     t.equal(result[2].real, 1);
   });
 });
+
+test('1d forward reverse all ones', function(t) {
+  t.plan(8);
+  fftw.dft_1d([1, 1, 1, 1], function(err, result) {
+    fftw.idft_1d(result, function(err, result) {
+      result.forEach(function(complex) {
+        t.equal(complex.real, 1);
+        t.equal(complex.imag, 0);
+      });
+    });
+  });
+});
