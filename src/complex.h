@@ -19,6 +19,7 @@ class Complex : public node::ObjectWrap {
   static NAN_METHOD(New);
   static NAN_GETTER(Real);
   static NAN_GETTER(Imag);
+  static NAN_METHOD(ToString);
 
   double real;
   double imag;

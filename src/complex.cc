@@ -18,6 +18,8 @@ void Complex::Init() {
   NanAssignPersistent(complex_constructor, tpl);
   tpl->SetClassName(NanNew("Complex"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
+  NODE_SET_PROTOTYPE_METHOD(tpl, "toString", Complex::ToString);
+
   v8::Local<v8::ObjectTemplate> proto = tpl->PrototypeTemplate();
   proto->SetAccessor(NanNew<v8::String>("real"), Complex::Real);
   proto->SetAccessor(NanNew<v8::String>("imag"), Complex::Imag);
@@ -50,6 +52,17 @@ NAN_METHOD(Complex::New) {
   complex->Wrap(args.This());
 
   NanReturnValue(args.This());
+}
+
+NAN_METHOD(Complex::ToString) {
+  NanScope();
+
+  Complex* complex = ObjectWrap::Unwrap<Complex>(args.Holder());
+
+  char asString [26];
+  sprintf(asString, "%.4g + %.4gi", complex->real, complex->imag);
+
+  NanReturnValue(NanNew<v8::String>(asString));
 }
 
 NAN_GETTER(Complex::Real) {
