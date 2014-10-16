@@ -1,0 +1,3 @@
+[submodule "deps/fftw3"]
+	path = deps/fftw3
+	url = git@github.com:FFTW/fftw3.git
