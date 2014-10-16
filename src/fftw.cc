@@ -15,6 +15,7 @@ fftw_complex* ParseArray(Local<Array> data, int *size) {
     Local<Value> datum = data->Get(i);
     if(datum->IsNumber()) {
       input[i][0] = datum.As<Number>()->Value();
+      input[i][1] = 0;
     }
     else {
       Local<Object> comp = datum.As<Object>();
