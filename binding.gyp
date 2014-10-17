@@ -12,16 +12,8 @@
       "include_dirs" : [
         "<!(node -e \"require('nan')\")"
       ],
-      "conditions": [
-        [ "OS==\"mac\"",
-          {
-            "link_settings": {
-              "libraries": [
-                "-lfftw3", "-lm"
-              ]
-            }
-          }
-        ]
+      "dependencies" : [
+        "<(module_root_dir)/deps/fftw3.gyp:fftw3"
       ]
     }
   ]
