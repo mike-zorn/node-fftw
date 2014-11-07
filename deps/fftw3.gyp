@@ -2,6 +2,146 @@
   'variables': {
     'fftwversion': '3.3.4'
   }, 
+  {
+    'target_name': 'reodft', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'rdft.scalar.r2r', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'rdft.scalar.r2cb', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'rdft.scalar.r2cf', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'rdft.scalar', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'rdft', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'dft.scalar.codelets', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'dft.scalar', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'dft', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
+  {
+    'target_name': 'simd-support', 
+    'type': 'static_library',
+    'include_dirs': [
+      'config/<(OS)'
+    ],
+    'direct_dependent_settings': {
+      'include_dirs': [
+        'fftw-<(fftwversion)/kernel'
+      ]
+    },
+    'sources': [
+    ]
+  },
   'targets': [
   {
     'target_name': 'kernel', 
@@ -110,9 +250,12 @@
   , 'type': 'static_library'
   , 'include_dirs': [
       'config/<(OS)'
-    , 'fftw-<(fftwversion)/rdft'
-    , 'fftw-<(fftwversion)/reodft'
-    , 'fftw-<(fftwversion)/simd-support'
+        'fftw-<(fftwversion)/api'
+      , 'fftw-<(fftwversion)/kernel'
+      , 'fftw-<(fftwversion)/rdft'
+      , 'fftw-<(fftwversion)/dft'
+      , 'fftw-<(fftwversion)/reodft'
+      , 'fftw-<(fftwversion)'
     ]
   , 'direct_dependent_settings': {
       'include_dirs': [
@@ -121,12 +264,15 @@
       , 'fftw-<(fftwversion)/rdft'
       , 'fftw-<(fftwversion)/dft'
       , 'fftw-<(fftwversion)/reodft'
-      , 'fftw-<(fftwversion)/simd-support'
+      , 'fftw-<(fftwversion)'
       ]
     },
     'dependencies' : [
       '<(module_root_dir)/deps/fftw3.gyp:kernel',
-      '<(module_root_dir)/deps/fftw3.gyp:dft'
+      '<(module_root_dir)/deps/fftw3.gyp:dft',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft',
+      '<(module_root_dir)/deps/fftw3.gyp:reodft',
+      '<(module_root_dir)/deps/fftw3.gyp:simd-support'
     ]
   , 'sources': [
       'fftw-<(fftwversion)/api/fftw3.h'
@@ -210,17 +356,5 @@
     , 'fftw-<(fftwversion)/api/plan-guru64-split-dft-r2c.c'			
     , 'fftw-<(fftwversion)/api/plan-guru64-split-dft.c'
     , 'fftw-<(fftwversion)/api/mktensor-iodims64.c'
-    , 'fftw-<(fftwversion)/simd-support/taint.c'
-    , 'fftw-<(fftwversion)/simd-support/simd-common.h'
-    , 'fftw-<(fftwversion)/simd-support/simd-sse2.h'
-    , 'fftw-<(fftwversion)/simd-support/sse2.c'
-    , 'fftw-<(fftwversion)/simd-support/x86-cpuid.h'
-    , 'fftw-<(fftwversion)/simd-support/amd64-cpuid.h'
-    , 'fftw-<(fftwversion)/simd-support/avx.c'
-    , 'fftw-<(fftwversion)/simd-support/simd-avx.h'
-    , 'fftw-<(fftwversion)/simd-support/altivec.c'
-    , 'fftw-<(fftwversion)/simd-support/simd-altivec.h'
-    , 'fftw-<(fftwversion)/simd-support/neon.c'
-    , 'fftw-<(fftwversion)/simd-support/simd-neon.h'
     ]
 }]}
