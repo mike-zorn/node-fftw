@@ -39,7 +39,7 @@
 /* #undef FC_DUMMY_MAIN_EQ_F77 */
 
 /* C compiler name and flags */
-#define FFTW_CC "gcc -O3 -fomit-frame-pointer -mtune=native -malign-double -fstrict-aliasing -fno-schedule-insns -ffast-math"
+#define FFTW_CC "gcc -O3 -fomit-frame-pointer -mtune=native -fstrict-aliasing -fno-schedule-insns -ffast-math"
 
 /* Define to enable extra FFTW debugging code. */
 /* #undef FFTW_DEBUG */
@@ -222,7 +222,7 @@
 #define HAVE_SQRT 1
 
 /* Define to enable SSE/SSE2 optimizations. */
-#define HAVE_SSE2 1
+/* #undef HAVE_SSE2 */
 
 /* Define to 1 if you have the <stddef.h> header file. */
 #define HAVE_STDDEF_H 1
@@ -258,7 +258,7 @@
 /* #undef HAVE_TANL */
 
 /* Define if we have a threads library. */
-#define HAVE_THREADS 1
+/* #undef HAVE_THREADS */
 
 /* Define to 1 if you have the `time_base_to_time' function. */
 /* #undef HAVE_TIME_BASE_TO_TIME */
@@ -364,7 +364,7 @@
 #define TIME_WITH_SYS_TIME 1
 
 /* Define if we have and are using POSIX threads. */
-#define USING_POSIX_THREADS 1
+/* #undef USING_POSIX_THREADS */
 
 /* Version number of package */
 #define VERSION "3.3.4"
