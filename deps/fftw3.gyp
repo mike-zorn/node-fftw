@@ -269,7 +269,7 @@
       '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cf',
       '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cb',
       '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2r'
-    ]
+    ],
     'sources': [
       'fftw-<(fftwversion)/rdft/scalar/hb.h',
       'fftw-<(fftwversion)/rdft/scalar/r2cb.h',
@@ -425,7 +425,7 @@
     'dependencies': [
       '<(module_root_dir)/deps/fftw3.gyp:kernel',
       '<(module_root_dir)/deps/fftw3.gyp:dft.scalar.codelets'
-    ]
+    ],
     'sources': [
       'fftw-<(fftwversion)/dft/scalar/n.c',
       'fftw-<(fftwversion)/dft/scalar/t.c',
@@ -446,7 +446,7 @@
     'dependencies': [
       '<(module_root_dir)/deps/fftw3.gyp:kernel',
       '<(module_root_dir)/deps/fftw3.gyp:dft.scalar'
-    ]
+    ],
     'sources': [
       'fftw-<(fftwversion)/dft/bluestein.c',
       'fftw-<(fftwversion)/dft/buffered.c',
@@ -487,7 +487,7 @@
     ],
     'dependencies': [
       '<(module_root_dir)/deps/fftw3.gyp:kernel'
-    ]
+    ],
     'sources': [
       'fftw-<(fftwversion)/simd-support/taint.c',
       'fftw-<(fftwversion)/simd-support/simd-common.h',
