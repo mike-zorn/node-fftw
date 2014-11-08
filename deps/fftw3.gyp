@@ -558,59 +558,18 @@
       'fftw-<(fftwversion)/kernel/ifftw.h'
     ]
   },
-  {
-    'target_name': 'dft', 
-    'type': 'static_library',
-    'include_dirs': [
-      'config/<(OS)',
-      'fftw-<(fftwversion)/kernel',
-      'fftw-<(fftwversion)/dft'
-    ],
-    'dependencies' : [
-      '<(module_root_dir)/deps/fftw3.gyp:kernel'
-    ],
-    'sources': [
-      'fftw-<(fftwversion)/dft/bluestein.c',
-      'fftw-<(fftwversion)/dft/buffered.c',
-      'fftw-<(fftwversion)/dft/conf.c',
-      'fftw-<(fftwversion)/dft/ct.c',
-      'fftw-<(fftwversion)/dft/dftw-direct.c',
-      'fftw-<(fftwversion)/dft/dftw-directsq.c',
-      'fftw-<(fftwversion)/dft/dftw-generic.c',
-      'fftw-<(fftwversion)/dft/dftw-genericbuf.c',
-      'fftw-<(fftwversion)/dft/direct.c',
-      'fftw-<(fftwversion)/dft/generic.c',
-      'fftw-<(fftwversion)/dft/indirect.c',
-      'fftw-<(fftwversion)/dft/indirect-transpose.c',
-      'fftw-<(fftwversion)/dft/kdft-dif.c',
-      'fftw-<(fftwversion)/dft/kdft-difsq.c',
-      'fftw-<(fftwversion)/dft/kdft-dit.c',
-      'fftw-<(fftwversion)/dft/kdft.c',
-      'fftw-<(fftwversion)/dft/nop.c',
-      'fftw-<(fftwversion)/dft/plan.c',
-      'fftw-<(fftwversion)/dft/problem.c',
-      'fftw-<(fftwversion)/dft/rader.c',
-      'fftw-<(fftwversion)/dft/rank-geq2.c',
-      'fftw-<(fftwversion)/dft/solve.c',
-      'fftw-<(fftwversion)/dft/vrank-geq1.c',
-      'fftw-<(fftwversion)/dft/zero.c',
-      'fftw-<(fftwversion)/dft/codelet-dft.h',
-      'fftw-<(fftwversion)/dft/ct.h',
-      'fftw-<(fftwversion)/dft/dft.h'
-    ]
-  },
 
   {
     'target_name': 'fftw3',
     'type': 'static_library',
     'include_dirs': [
-      'config/<(OS)'
-        'fftw-<(fftwversion)/api',
-        'fftw-<(fftwversion)/kernel',
-        'fftw-<(fftwversion)/rdft',
-        'fftw-<(fftwversion)/dft',
-        'fftw-<(fftwversion)/reodft',
-        'fftw-<(fftwversion)'
+      'config/<(OS)',
+      'fftw-<(fftwversion)/api',
+      'fftw-<(fftwversion)/kernel',
+      'fftw-<(fftwversion)/rdft',
+      'fftw-<(fftwversion)/dft',
+      'fftw-<(fftwversion)/reodft',
+      'fftw-<(fftwversion)'
     ],
     'direct_dependent_settings': {
       'include_dirs': [
