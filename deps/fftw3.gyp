@@ -2,6 +2,7 @@
   'variables': {
     'fftwversion': '3.3.4'
   }, 
+  'targets': [
 
   {
     'target_name': 'reodft', 
@@ -11,6 +12,10 @@
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/rdft',
       'fftw-<(fftwversion)/rdft/scalar'
+    ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft'
     ],
     'sources': [
       'fftw-<(fftwversion)/reodft/conf.c',
@@ -33,6 +38,9 @@
       'fftw-<(fftwversion)/rdft',
       'fftw-<(fftwversion)/rdft/scalar'
     ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel'
+    ],
     'sources': [
       'fftw-<(fftwversion)/rdft/scalar/r2r/e01_8.c',
       'fftw-<(fftwversion)/rdft/scalar/r2r/e10_8.c'
@@ -47,6 +55,9 @@
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/rdft',
       'fftw-<(fftwversion)/rdft/scalar'
+    ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
       'fftw-<fftwversion)/rdft/scalar/r2cb/r2cb_2.c',
@@ -147,6 +158,9 @@
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/rdft',
       'fftw-<(fftwversion)/rdft/scalar'
+    ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
       'fftw-<(fftwversion)/rdft/scalar/r2cf/r2cf_2.c',
@@ -250,6 +264,12 @@
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/rdft'
     ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cf',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cb',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2r'
+    ]
     'sources': [
       'fftw-<(fftwversion)/rdft/scalar/hb.h',
       'fftw-<(fftwversion)/rdft/scalar/r2cb.h',
@@ -274,6 +294,11 @@
       'config/<(OS)',
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/dft'
+    ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel',
+      '<(module_root_dir)/deps/fftw3.gyp:dft',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar'
     ],
     'sources': [
       'fftw-<(fftwversion)/rdft/buffered2.c',
@@ -331,6 +356,9 @@
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/dft',
       'fftw-<(fftwversion)/dft/scalar'
+    ],
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
       '<(fftw-fftwversion)/dft/scalar/codelets/n1_2.c',
@@ -390,101 +418,98 @@
     'target_name': 'dft.scalar', 
     'type': 'static_library',
     'include_dirs': [
-      'config/<(OS)'
+      'config/<(OS)',
+      'fftw-<(fftwversion)/kernel',
+      'fftw-<(fftwversion)/dft'
     ],
-    'direct_dependent_settings': {
-      'include_dirs': [
-        'fftw-<(fftwversion)/kernel'
-      ]
-    },
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel',
+      '<(module_root_dir)/deps/fftw3.gyp:dft.scalar.codelets'
+    ]
     'sources': [
-      'n.c',
-      't.c',
-      'f.h',
-      'n.h',
-      'q.h',
-      't.h'
+      'fftw-<(fftwversion)/dft/scalar/n.c',
+      'fftw-<(fftwversion)/dft/scalar/t.c',
+      'fftw-<(fftwversion)/dft/scalar/f.h',
+      'fftw-<(fftwversion)/dft/scalar/n.h',
+      'fftw-<(fftwversion)/dft/scalar/q.h',
+      'fftw-<(fftwversion)/dft/scalar/t.h'
     ]
   },
+
   {
     'target_name': 'dft', 
     'type': 'static_library',
     'include_dirs': [
-      'config/<(OS)'
+      'config/<(OS)',
+      'fftw-<(fftwversion)/kernel'
     ],
-    'direct_dependent_settings': {
-      'include_dirs': [
-        'fftw-<(fftwversion)/kernel'
-      ]
-    },
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel',
+      '<(module_root_dir)/deps/fftw3.gyp:dft.scalar'
+    ]
     'sources': [
-      'bluestein.c',
-      'buffered.c',
-      'conf.c',
-      'ct.c',
-      'dftw-direct.c',
-      'dftw-directsq.c',
-      'dftw-generic.c',
-      'dftw-genericbuf.c',
-      'direct.c',
-      'generic.c',
-      'indirect.c',
-      'indirect-transpose.c',
-      'kdft-dif.c',
-      'kdft-difsq.c',
-      'kdft-dit.c',
-      'kdft.c',
-      'nop.c',
-      'plan.c',
-      'problem.c',
-      'rader.c',
-      'rank-geq2.c',
-      'solve.c',
-      'vrank-geq1.c',
-      'zero.c',
-      'codelet-dft.h',
-      'ct.h',
-      'dft.h'
+      'fftw-<(fftwversion)/dft/bluestein.c',
+      'fftw-<(fftwversion)/dft/buffered.c',
+      'fftw-<(fftwversion)/dft/conf.c',
+      'fftw-<(fftwversion)/dft/ct.c',
+      'fftw-<(fftwversion)/dft/dftw-direct.c',
+      'fftw-<(fftwversion)/dft/dftw-directsq.c',
+      'fftw-<(fftwversion)/dft/dftw-generic.c',
+      'fftw-<(fftwversion)/dft/dftw-genericbuf.c',
+      'fftw-<(fftwversion)/dft/direct.c',
+      'fftw-<(fftwversion)/dft/generic.c',
+      'fftw-<(fftwversion)/dft/indirect.c',
+      'fftw-<(fftwversion)/dft/indirect-transpose.c',
+      'fftw-<(fftwversion)/dft/kdft-dif.c',
+      'fftw-<(fftwversion)/dft/kdft-difsq.c',
+      'fftw-<(fftwversion)/dft/kdft-dit.c',
+      'fftw-<(fftwversion)/dft/kdft.c',
+      'fftw-<(fftwversion)/dft/nop.c',
+      'fftw-<(fftwversion)/dft/plan.c',
+      'fftw-<(fftwversion)/dft/problem.c',
+      'fftw-<(fftwversion)/dft/rader.c',
+      'fftw-<(fftwversion)/dft/rank-geq2.c',
+      'fftw-<(fftwversion)/dft/solve.c',
+      'fftw-<(fftwversion)/dft/vrank-geq1.c',
+      'fftw-<(fftwversion)/dft/zero.c',
+      'fftw-<(fftwversion)/dft/codelet-dft.h',
+      'fftw-<(fftwversion)/dft/ct.h',
+      'fftw-<(fftwversion)/dft/dft.h'
     ]
   },
+
   {
     'target_name': 'simd-support', 
     'type': 'static_library',
     'include_dirs': [
-      'config/<(OS)'
+      'config/<(OS)',
+      'fftw-<(fftwversion)/kernel'
     ],
-    'direct_dependent_settings': {
-      'include_dirs': [
-        'fftw-<(fftwversion)/kernel'
-      ]
-    },
+    'dependencies': [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel'
+    ]
     'sources': [
-      'taint.c',
-      'simd-common.h',
-      'simd-sse2.h',
-      'sse2.c',
-      'x86-cpuid.h',
-      'amd64-cpuid.h',
-      'avx.c',
-      'simd-avx.h',
-      'altivec.c',
-      'simd-altivec.h',
-      'neon.c'
-      'simd-neon.h'
+      'fftw-<(fftwversion)/simd-support/taint.c',
+      'fftw-<(fftwversion)/simd-support/simd-common.h',
+      'fftw-<(fftwversion)/simd-support/simd-sse2.h',
+      'fftw-<(fftwversion)/simd-support/sse2.c',
+      'fftw-<(fftwversion)/simd-support/x86-cpuid.h',
+      'fftw-<(fftwversion)/simd-support/amd64-cpuid.h',
+      'fftw-<(fftwversion)/simd-support/avx.c',
+      'fftw-<(fftwversion)/simd-support/simd-avx.h',
+      'fftw-<(fftwversion)/simd-support/altivec.c',
+      'fftw-<(fftwversion)/simd-support/simd-altivec.h',
+      'fftw-<(fftwversion)/simd-support/neon.c'
+      'fftw-<(fftwversion)/simd-support/simd-neon.h'
     ]
   },
-  'targets': [
+
   {
     'target_name': 'kernel', 
     'type': 'static_library',
     'include_dirs': [
       'config/<(OS)'
     ],
-    'direct_dependent_settings': {
-      'include_dirs': [
-        'fftw-<(fftwversion)/kernel'
-      ]
-    },
     'sources': [
       'fftw-<(fftwversion)/kernel/align.c',
       'fftw-<(fftwversion)/kernel/alloc.c',
@@ -541,11 +566,9 @@
       'fftw-<(fftwversion)/kernel',
       'fftw-<(fftwversion)/dft'
     ],
-    'direct_dependent_settings': {
-      'include_dirs': [
-        'fftw-<(fftwversion)/dft'
-      ]
-    },
+    'dependencies' : [
+      '<(module_root_dir)/deps/fftw3.gyp:kernel'
+    ],
     'sources': [
       'fftw-<(fftwversion)/dft/bluestein.c',
       'fftw-<(fftwversion)/dft/buffered.c',
@@ -575,27 +598,28 @@
       'fftw-<(fftwversion)/dft/ct.h',
       'fftw-<(fftwversion)/dft/dft.h'
     ]
-  }
-, {
-    'target_name': 'fftw3'
-  , 'type': 'static_library'
-  , 'include_dirs': [
+  },
+
+  {
+    'target_name': 'fftw3',
+    'type': 'static_library',
+    'include_dirs': [
       'config/<(OS)'
-        'fftw-<(fftwversion)/api'
-      , 'fftw-<(fftwversion)/kernel'
-      , 'fftw-<(fftwversion)/rdft'
-      , 'fftw-<(fftwversion)/dft'
-      , 'fftw-<(fftwversion)/reodft'
-      , 'fftw-<(fftwversion)'
-    ]
-  , 'direct_dependent_settings': {
+        'fftw-<(fftwversion)/api',
+        'fftw-<(fftwversion)/kernel',
+        'fftw-<(fftwversion)/rdft',
+        'fftw-<(fftwversion)/dft',
+        'fftw-<(fftwversion)/reodft',
+        'fftw-<(fftwversion)'
+    ],
+    'direct_dependent_settings': {
       'include_dirs': [
-        'fftw-<(fftwversion)/api'
-      , 'fftw-<(fftwversion)/kernel'
-      , 'fftw-<(fftwversion)/rdft'
-      , 'fftw-<(fftwversion)/dft'
-      , 'fftw-<(fftwversion)/reodft'
-      , 'fftw-<(fftwversion)'
+        'fftw-<(fftwversion)/api',
+        'fftw-<(fftwversion)/kernel',
+        'fftw-<(fftwversion)/rdft',
+        'fftw-<(fftwversion)/dft',
+        'fftw-<(fftwversion)/reodft',
+        'fftw-<(fftwversion)'
       ]
     },
     'dependencies' : [
@@ -604,88 +628,88 @@
       '<(module_root_dir)/deps/fftw3.gyp:rdft',
       '<(module_root_dir)/deps/fftw3.gyp:reodft',
       '<(module_root_dir)/deps/fftw3.gyp:simd-support'
-    ]
-  , 'sources': [
-      'fftw-<(fftwversion)/api/fftw3.h'
-    , 'fftw-<(fftwversion)/api/apiplan.c'
-    , 'fftw-<(fftwversion)/api/configure.c'
-    , 'fftw-<(fftwversion)/api/execute-dft-c2r.c'		
-    , 'fftw-<(fftwversion)/api/execute-dft-r2c.c'
-    , 'fftw-<(fftwversion)/api/execute-dft.c'
-    , 'fftw-<(fftwversion)/api/execute-r2r.c'
-    , 'fftw-<(fftwversion)/api/execute-split-dft-c2r.c'	
-    , 'fftw-<(fftwversion)/api/execute-split-dft-r2c.c'
-    , 'fftw-<(fftwversion)/api/execute-split-dft.c'
-    , 'fftw-<(fftwversion)/api/execute.c'			
-    , 'fftw-<(fftwversion)/api/export-wisdom-to-file.c'
-    , 'fftw-<(fftwversion)/api/export-wisdom-to-string.c'
-    , 'fftw-<(fftwversion)/api/export-wisdom.c'	
-    , 'fftw-<(fftwversion)/api/f77api.c'
-    , 'fftw-<(fftwversion)/api/flops.c'
-    , 'fftw-<(fftwversion)/api/forget-wisdom.c'
-    , 'fftw-<(fftwversion)/api/import-system-wisdom.c'			
-    , 'fftw-<(fftwversion)/api/import-wisdom-from-file.c'
-    , 'fftw-<(fftwversion)/api/import-wisdom-from-string.c'
-    , 'fftw-<(fftwversion)/api/import-wisdom.c'	
-    , 'fftw-<(fftwversion)/api/malloc.c'
-    , 'fftw-<(fftwversion)/api/map-r2r-kind.c'
-    , 'fftw-<(fftwversion)/api/mapflags.c'
-    , 'fftw-<(fftwversion)/api/mkprinter-file.c'
-    , 'fftw-<(fftwversion)/api/mkprinter-str.c'	
-    , 'fftw-<(fftwversion)/api/mktensor-iodims.c'
-    , 'fftw-<(fftwversion)/api/mktensor-rowmajor.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-1d.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-2d.c'	
-    , 'fftw-<(fftwversion)/api/plan-dft-3d.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-c2r-1d.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-c2r-2d.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-c2r-3d.c'	
-    , 'fftw-<(fftwversion)/api/plan-dft-c2r.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-r2c-1d.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-r2c-2d.c'
-    , 'fftw-<(fftwversion)/api/plan-dft-r2c-3d.c'	
-    , 'fftw-<(fftwversion)/api/plan-dft-r2c.c'
-    , 'fftw-<(fftwversion)/api/plan-dft.c'
-    , 'fftw-<(fftwversion)/api/plan-guru-dft-c2r.c'
-    , 'fftw-<(fftwversion)/api/plan-guru-dft-r2c.c'	
-    , 'fftw-<(fftwversion)/api/plan-guru-dft.c'
-    , 'fftw-<(fftwversion)/api/plan-guru-r2r.c'
-    , 'fftw-<(fftwversion)/api/plan-guru-split-dft-c2r.c'		
-    , 'fftw-<(fftwversion)/api/plan-guru-split-dft-r2c.c'
-    , 'fftw-<(fftwversion)/api/plan-guru-split-dft.c'
-    , 'fftw-<(fftwversion)/api/plan-many-dft-c2r.c'	
-    , 'fftw-<(fftwversion)/api/plan-many-dft-r2c.c'
-    , 'fftw-<(fftwversion)/api/plan-many-dft.c'
-    , 'fftw-<(fftwversion)/api/plan-many-r2r.c'
-    , 'fftw-<(fftwversion)/api/plan-r2r-1d.c'	
-    , 'fftw-<(fftwversion)/api/plan-r2r-2d.c'
-    , 'fftw-<(fftwversion)/api/plan-r2r-3d.c'
-    , 'fftw-<(fftwversion)/api/plan-r2r.c'
-    , 'fftw-<(fftwversion)/api/print-plan.c'
-    , 'fftw-<(fftwversion)/api/rdft2-pad.c'		
-    , 'fftw-<(fftwversion)/api/the-planner.c'
-    , 'fftw-<(fftwversion)/api/version.c'
-    , 'fftw-<(fftwversion)/api/api.h'
-    , 'fftw-<(fftwversion)/api/f77funcs.h'
-    , 'fftw-<(fftwversion)/api/fftw3.h'
-    , 'fftw-<(fftwversion)/api/x77.h'
-    , 'fftw-<(fftwversion)/api/guru.h'		
-    , 'fftw-<(fftwversion)/api/guru64.h'
-    , 'fftw-<(fftwversion)/api/mktensor-iodims.h'
-    , 'fftw-<(fftwversion)/api/plan-guru-dft-c2r.h'
-    , 'fftw-<(fftwversion)/api/plan-guru-dft-r2c.h'	
-    , 'fftw-<(fftwversion)/api/plan-guru-dft.h'
-    , 'fftw-<(fftwversion)/api/plan-guru-r2r.h'
-    , 'fftw-<(fftwversion)/api/plan-guru-split-dft-c2r.h'		
-    , 'fftw-<(fftwversion)/api/plan-guru-split-dft-r2c.h'
-    , 'fftw-<(fftwversion)/api/plan-guru-split-dft.h'
-    , 'fftw-<(fftwversion)/api/plan-guru64-dft-c2r.c'	
-    , 'fftw-<(fftwversion)/api/plan-guru64-dft-r2c.c'
-    , 'fftw-<(fftwversion)/api/plan-guru64-dft.c'
-    , 'fftw-<(fftwversion)/api/plan-guru64-r2r.c'		
-    , 'fftw-<(fftwversion)/api/plan-guru64-split-dft-c2r.c'
-    , 'fftw-<(fftwversion)/api/plan-guru64-split-dft-r2c.c'			
-    , 'fftw-<(fftwversion)/api/plan-guru64-split-dft.c'
-    , 'fftw-<(fftwversion)/api/mktensor-iodims64.c'
+    ],
+    'sources': [
+      'fftw-<(fftwversion)/api/fftw3.h',
+      'fftw-<(fftwversion)/api/apiplan.c',
+      'fftw-<(fftwversion)/api/configure.c',
+      'fftw-<(fftwversion)/api/execute-dft-c2r.c',
+      'fftw-<(fftwversion)/api/execute-dft-r2c.c',
+      'fftw-<(fftwversion)/api/execute-dft.c',
+      'fftw-<(fftwversion)/api/execute-r2r.c',
+      'fftw-<(fftwversion)/api/execute-split-dft-c2r.c',
+      'fftw-<(fftwversion)/api/execute-split-dft-r2c.c',
+      'fftw-<(fftwversion)/api/execute-split-dft.c',
+      'fftw-<(fftwversion)/api/execute.c',
+      'fftw-<(fftwversion)/api/export-wisdom-to-file.c',
+      'fftw-<(fftwversion)/api/export-wisdom-to-string.c',
+      'fftw-<(fftwversion)/api/export-wisdom.c',
+      'fftw-<(fftwversion)/api/f77api.c',
+      'fftw-<(fftwversion)/api/flops.c',
+      'fftw-<(fftwversion)/api/forget-wisdom.c',
+      'fftw-<(fftwversion)/api/import-system-wisdom.c',
+      'fftw-<(fftwversion)/api/import-wisdom-from-file.c',
+      'fftw-<(fftwversion)/api/import-wisdom-from-string.c',
+      'fftw-<(fftwversion)/api/import-wisdom.c',
+      'fftw-<(fftwversion)/api/malloc.c',
+      'fftw-<(fftwversion)/api/map-r2r-kind.c',
+      'fftw-<(fftwversion)/api/mapflags.c',
+      'fftw-<(fftwversion)/api/mkprinter-file.c',
+      'fftw-<(fftwversion)/api/mkprinter-str.c',
+      'fftw-<(fftwversion)/api/mktensor-iodims.c',
+      'fftw-<(fftwversion)/api/mktensor-rowmajor.c',
+      'fftw-<(fftwversion)/api/plan-dft-1d.c',
+      'fftw-<(fftwversion)/api/plan-dft-2d.c',
+      'fftw-<(fftwversion)/api/plan-dft-3d.c',
+      'fftw-<(fftwversion)/api/plan-dft-c2r-1d.c',
+      'fftw-<(fftwversion)/api/plan-dft-c2r-2d.c',
+      'fftw-<(fftwversion)/api/plan-dft-c2r-3d.c',
+      'fftw-<(fftwversion)/api/plan-dft-c2r.c',
+      'fftw-<(fftwversion)/api/plan-dft-r2c-1d.c',
+      'fftw-<(fftwversion)/api/plan-dft-r2c-2d.c',
+      'fftw-<(fftwversion)/api/plan-dft-r2c-3d.c',
+      'fftw-<(fftwversion)/api/plan-dft-r2c.c',
+      'fftw-<(fftwversion)/api/plan-dft.c',
+      'fftw-<(fftwversion)/api/plan-guru-dft-c2r.c',
+      'fftw-<(fftwversion)/api/plan-guru-dft-r2c.c',
+      'fftw-<(fftwversion)/api/plan-guru-dft.c',
+      'fftw-<(fftwversion)/api/plan-guru-r2r.c',
+      'fftw-<(fftwversion)/api/plan-guru-split-dft-c2r.c',
+      'fftw-<(fftwversion)/api/plan-guru-split-dft-r2c.c',
+      'fftw-<(fftwversion)/api/plan-guru-split-dft.c',
+      'fftw-<(fftwversion)/api/plan-many-dft-c2r.c',
+      'fftw-<(fftwversion)/api/plan-many-dft-r2c.c',
+      'fftw-<(fftwversion)/api/plan-many-dft.c',
+      'fftw-<(fftwversion)/api/plan-many-r2r.c',
+      'fftw-<(fftwversion)/api/plan-r2r-1d.c',
+      'fftw-<(fftwversion)/api/plan-r2r-2d.c',
+      'fftw-<(fftwversion)/api/plan-r2r-3d.c',
+      'fftw-<(fftwversion)/api/plan-r2r.c',
+      'fftw-<(fftwversion)/api/print-plan.c',
+      'fftw-<(fftwversion)/api/rdft2-pad.c',
+      'fftw-<(fftwversion)/api/the-planner.c',
+      'fftw-<(fftwversion)/api/version.c',
+      'fftw-<(fftwversion)/api/api.h',
+      'fftw-<(fftwversion)/api/f77funcs.h',
+      'fftw-<(fftwversion)/api/fftw3.h',
+      'fftw-<(fftwversion)/api/x77.h',
+      'fftw-<(fftwversion)/api/guru.h',
+      'fftw-<(fftwversion)/api/guru64.h',
+      'fftw-<(fftwversion)/api/mktensor-iodims.h',
+      'fftw-<(fftwversion)/api/plan-guru-dft-c2r.h',
+      'fftw-<(fftwversion)/api/plan-guru-dft-r2c.h',
+      'fftw-<(fftwversion)/api/plan-guru-dft.h',
+      'fftw-<(fftwversion)/api/plan-guru-r2r.h',
+      'fftw-<(fftwversion)/api/plan-guru-split-dft-c2r.h',
+      'fftw-<(fftwversion)/api/plan-guru-split-dft-r2c.h',
+      'fftw-<(fftwversion)/api/plan-guru-split-dft.h',
+      'fftw-<(fftwversion)/api/plan-guru64-dft-c2r.c',
+      'fftw-<(fftwversion)/api/plan-guru64-dft-r2c.c',
+      'fftw-<(fftwversion)/api/plan-guru64-dft.c',
+      'fftw-<(fftwversion)/api/plan-guru64-r2r.c',
+      'fftw-<(fftwversion)/api/plan-guru64-split-dft-c2r.c',
+      'fftw-<(fftwversion)/api/plan-guru64-split-dft-r2c.c',
+      'fftw-<(fftwversion)/api/plan-guru64-split-dft.c',
+      'fftw-<(fftwversion)/api/mktensor-iodims64.c'
     ]
 }]}
