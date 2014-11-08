@@ -359,6 +359,7 @@
       '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
+      'fftw-<(fftwversion)/dft/scalar/codelets/codlist.c',
       'fftw-<(fftwversion)/dft/scalar/codelets/n1_2.c',
       'fftw-<(fftwversion)/dft/scalar/codelets/n1_3.c',
       'fftw-<(fftwversion)/dft/scalar/codelets/n1_4.c',
