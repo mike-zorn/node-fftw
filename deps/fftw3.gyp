@@ -42,6 +42,7 @@
       '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
+      'fftw-<(fftwversion)/rdft/scalar/r2r/codlist.c',
       'fftw-<(fftwversion)/rdft/scalar/r2r/e01_8.c',
       'fftw-<(fftwversion)/rdft/scalar/r2r/e10_8.c'
     ]
@@ -60,6 +61,7 @@
       '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
+      'fftw-<fftwversion)/rdft/scalar/r2cb/codlist.c',
       'fftw-<fftwversion)/rdft/scalar/r2cb/r2cb_2.c',
       'fftw-<fftwversion)/rdft/scalar/r2cb/r2cb_3.c',
       'fftw-<fftwversion)/rdft/scalar/r2cb/r2cb_4.c',
@@ -163,6 +165,7 @@
       '<(module_root_dir)/deps/fftw3.gyp:kernel'
     ],
     'sources': [
+      'fftw-<(fftwversion)/rdft/scalar/r2cf/codlist.c',
       'fftw-<(fftwversion)/rdft/scalar/r2cf/r2cf_2.c',
       'fftw-<(fftwversion)/rdft/scalar/r2cf/r2cf_3.c',
       'fftw-<(fftwversion)/rdft/scalar/r2cf/r2cf_4.c',
@@ -266,6 +269,8 @@
     ],
     'dependencies': [
       '<(module_root_dir)/deps/fftw3.gyp:kernel',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cb',
+      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cf',
       '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2r'
     ],
     'sources': [
