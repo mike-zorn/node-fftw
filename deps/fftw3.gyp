@@ -266,8 +266,6 @@
     ],
     'dependencies': [
       '<(module_root_dir)/deps/fftw3.gyp:kernel',
-      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cf',
-      '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2cb',
       '<(module_root_dir)/deps/fftw3.gyp:rdft.scalar.r2r'
     ],
     'sources': [
