@@ -37,14 +37,3 @@ fftw.dft_1d(input, function(err, result) {
 The following transforms are currently exposed.
   * `dft_1d`
   * `idft_1d`
-
-Planned features
-----------------
-
-1. Expose plan API
-  - Expose the API
-  - deprecate the current API
-  - create another module to provide the current API by handling plans
-    automatically
-2. Support higher dimensional transforms
-3. Support all the other FFTW transform types
