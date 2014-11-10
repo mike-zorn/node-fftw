@@ -39,7 +39,7 @@
 /* #undef FC_DUMMY_MAIN_EQ_F77 */
 
 /* C compiler name and flags */
-#define FFTW_CC "gcc -O3 -fomit-frame-pointer -mtune=native -fstrict-aliasing -fno-schedule-insns -ffast-math"
+#define FFTW_CC "gcc -std=gnu99 -O3 -fomit-frame-pointer -mtune=native -malign-double -fstrict-aliasing -fno-schedule-insns -ffast-math"
 
 /* Define to enable extra FFTW debugging code. */
 /* #undef FFTW_DEBUG */
@@ -110,7 +110,7 @@
 
 /* Define to 1 if you have the declaration of `memalign', and to 0 if you
    don't. */
-#define HAVE_DECL_MEMALIGN 0
+#define HAVE_DECL_MEMALIGN 1
 
 /* Define to 1 if you have the declaration of `posix_memalign', and to 0 if
    you don't. */
@@ -159,7 +159,7 @@
 #define HAVE_ISNAN 1
 
 /* Define to 1 if you have the <libintl.h> header file. */
-/* #undef HAVE_LIBINTL_H */
+#define HAVE_LIBINTL_H 1
 
 /* Define to 1 if you have the `m' library (-lm). */
 #define HAVE_LIBM 1
@@ -174,16 +174,16 @@
 #define HAVE_LONG_DOUBLE 1
 
 /* Define to 1 if you have the `mach_absolute_time' function. */
-#define HAVE_MACH_ABSOLUTE_TIME 1
+/* #undef HAVE_MACH_ABSOLUTE_TIME */
 
 /* Define to 1 if you have the <mach/mach_time.h> header file. */
-#define HAVE_MACH_MACH_TIME_H 1
+/* #undef HAVE_MACH_MACH_TIME_H */
 
 /* Define to 1 if you have the <malloc.h> header file. */
-/* #undef HAVE_MALLOC_H */
+#define HAVE_MALLOC_H 1
 
 /* Define to 1 if you have the `memalign' function. */
-/* #undef HAVE_MEMALIGN */
+#define HAVE_MEMALIGN 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
