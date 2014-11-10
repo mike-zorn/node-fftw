@@ -9,7 +9,7 @@ The fastest fourier transform in the west for node.js
 Installation
 ------------
 
-[![npm install node-fftw](https://nodei.co/npm/node-fftw.png)](https://npmjs.org/package/node-fftw)
+[![npm install fftw](https://nodei.co/npm/fftw.png)](https://npmjs.org/package/fftw)
 
 Usage
 -----
