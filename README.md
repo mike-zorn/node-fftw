@@ -1,6 +1,9 @@
 FFTW for node.js
 ================
 
+[![Build Status](https://travis-ci.org/apechimp/node-fftw.png?branch=master)]
+(https://travis-ci.org/apechimp/node-fftw)
+
 The fastest fourier transform in the west for node.js
 
 Installation
