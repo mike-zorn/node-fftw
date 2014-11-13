@@ -28,36 +28,18 @@ fftw_complex* ParseArray(Local<Array> data, int *size) {
 
 }
 
-NAN_METHOD(Dft1d) {
+NAN_METHOD(PlanDft1d) {
   NanScope();
 
-  Local<Array> data = args[0].As<Array>();
+  Local<Object> opts = args[0].As<Object>();
   Local<Function> callback = args[1].As<Function>();
   
   NanCallback* nanCallback = new NanCallback(callback);
 
-  int size;
+  int size = opts->Get(NanNew<String>("size")).As<Number>()->Value();
   fftw_complex* input = ParseArray(data, &size);
 
   FftWorker1d* worker = new FftWorker1d(nanCallback, size, input);
-  
-  NanAsyncQueueWorker(worker);
-
-  NanReturnUndefined();
-}
-
-NAN_METHOD(Idft1d) {
-  NanScope();
-
-  Local<Array> data = args[0].As<Array>();
-  Local<Function> callback = args[1].As<Function>();
-  
-  NanCallback* nanCallback = new NanCallback(callback);
-
-  int size;
-  fftw_complex* input = ParseArray(data, &size);
-
-  IfftWorker1d* worker = new IfftWorker1d(nanCallback, size, input);
   
   NanAsyncQueueWorker(worker);
 
