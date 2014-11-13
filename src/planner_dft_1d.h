@@ -15,7 +15,7 @@ class PlannerDft1d : public NanAsyncWorker {
     int size;
     int sign;
     unsigned flags;
-    fftw_plan* plan;
+    fftw_plan plan;
     fftw_complex* in;
     fftw_complex* out;
 };

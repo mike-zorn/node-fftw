@@ -8,7 +8,7 @@ Executor::Executor(
     NanCallback *callback, 
     fftw_complex* in, 
     fftw_complex* out, 
-    fftw_plan* plan,
+    fftw_plan plan,
     int size) 
 : NanAsyncWorker(callback), 
   in(in), 
@@ -40,7 +40,8 @@ void Executor::HandleOKCallback () {
   Handle<Value> arguments [3] = { Null(), result, NanNew<Plan>(
       this->in, 
       this->out, 
-      this->plan) };
+      this->plan,
+      this->size) };
   callback->Call(3, arguments);
 }
 

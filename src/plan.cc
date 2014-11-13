@@ -1,11 +1,15 @@
 #include "complex.h"
+#include "plan.h"
+#include "executor.h"
 #include <node.h>
 #include <nan.h>
 
-static v8::Persistent<v8::FunctionTemplate> plan_constructor;
+using namespace v8;
 
-Plan::Plan(fftw_complex* in, fftw_complex* out, fftw_plan* plan) : 
-  executed(false);
+static Persistent<FunctionTemplate> plan_constructor;
+
+Plan::Plan() : 
+  executed(false)
 { }
 
 Plan::~Plan() {
@@ -14,9 +18,9 @@ Plan::~Plan() {
   }
 }
 
-void Complex::Init() {
-  v8::Local<v8::FunctionTemplate> tpl = 
-    NanNew<v8::FunctionTemplate>(Plan::New);
+void Plan::Init() {
+  Local<FunctionTemplate> tpl = 
+    NanNew<FunctionTemplate>(Plan::New);
   NanAssignPersistent(plan_constructor, tpl);
   tpl->SetClassName(NanNew("Plan"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
@@ -24,22 +28,44 @@ void Complex::Init() {
 
 }
 
-v8::Handle<v8::Value> Plan::NewInstance(
+void Plan::LoadInput(Local<Array> data) {
+  fftw_complex* input = this->in;
+
+  for(int i = 0; i < this->size; i++) {
+    Local<Value> datum = data->Get(i);
+    if(datum->IsNumber()) {
+      input[i][0] = datum.As<Number>()->Value();
+      input[i][1] = 0;
+    }
+    else {
+      Local<Object> comp = datum.As<Object>();
+      input[i][0] = comp->Get(NanNew<String>("real")).As<Number>()->Value();
+      input[i][1] = comp->Get(NanNew<String>("imag")).As<Number>()->Value();
+    }
+  }
+}
+
+Handle<Value> Plan::NewInstance(
     fftw_complex* in, 
     fftw_complex* out, 
-    fftw_plan* plan
+    fftw_plan plan,
+    int size
   ) {
 
   NanEscapableScope();
 
-  v8::Local<v8::FunctionTemplate> constructorHandle =
-      NanNew<v8::FunctionTemplate>(complex_constructor);
+  Local<FunctionTemplate> constructorHandle =
+      NanNew<FunctionTemplate>(plan_constructor);
 
-  //FIXME
-  v8::Handle<v8::Value> argv[2] = { real, imag };
-  v8::Local<v8::Object> instance = 
-      constructorHandle->GetFunction()->NewInstance(2, argv);
-  //potentially make this work by modifying the created plan.
+  Handle<Value> argv[0] = { };
+  Local<Object> instance = 
+      constructorHandle->GetFunction()->NewInstance(0, argv);
+  
+  Plan* unwrapped = ObjectWrap::Unwrap<Plan>(instance);
+  unwrapped->in = in;
+  unwrapped->out = out;
+  unwrapped->plan = plan;
+  unwrapped->size = size;
 
   return NanEscapeScope(instance);
 }
@@ -47,12 +73,8 @@ v8::Handle<v8::Value> Plan::NewInstance(
 NAN_METHOD(Plan::New) {
   NanScope();
 
-  Plan* plan = new plan(
-      //FIXME
-      //args[0].As<v8::Number>()->Value(), 
-      //args[1].As<v8::Number>()->Value()
-  );
-  complex->Wrap(args.This());
+  Plan* plan = new Plan();
+  plan->Wrap(args.This());
 
   NanReturnValue(args.This());
 }
@@ -60,18 +82,25 @@ NAN_METHOD(Plan::New) {
 NAN_METHOD(Plan::Execute) {
   NanScope();
 
-  if(!this->executed) {
-    this->executed = true;
+  Plan* plan = ObjectWrap::Unwrap<Plan>(args.Holder());
 
+  if(!plan->executed) {
+    plan->executed = true;
+
+    Local<Array> input = args[0].As<Array>();
     Local<Function> callback = args[1].As<Function>();
     NanCallback* nanCallback = new NanCallback(callback);
 
-    Executor* executor(
+    plan->LoadInput(input);
+    Executor* executor = new Executor(
         nanCallback, 
-        this->in, 
-        this->out, 
-        this->plan, 
-        this->size);
+        plan->in, 
+        plan->out, 
+        plan->plan, 
+        plan->size);
+    NanAsyncQueueWorker(executor);
+
+    NanReturnUndefined();
   }
   else {
     //TODO throw something

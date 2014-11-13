@@ -5,9 +5,9 @@
       "sources": [ 
         "src/fftw.cc" 
       , "src/complex.cc"
-      , "src/fft_worker.cc"
-      , "src/fft_worker_1d.cc"
-      , "src/ifft_worker_1d.cc"
+      , "src/plan.cc"
+      , "src/planner_dft_1d.cc"
+      , "src/executor.cc"
       ],
       "include_dirs" : [
         "<!(node -e \"require('nan')\")"

@@ -3,6 +3,9 @@
 
 #include <nan.h>
 #include <node.h>
+#include <fftw3.h>
+
+using namespace v8;
 
 class Plan : public node::ObjectWrap {
  public:
@@ -10,20 +13,21 @@ class Plan : public node::ObjectWrap {
   static v8::Handle<v8::Value> NewInstance(
       fftw_complex* in, 
       fftw_complex* out, 
-      fftw_plan* plan);
+      fftw_plan plan,
+      int size);
 
-  Plan(
-      fftw_complex* in, 
-      fftw_complex* out, 
-      fftw_plan* plan);
+  Plan();
   ~Plan();
 
  private:
+  static NAN_METHOD(New);
   static NAN_METHOD(Execute);
 
-  fftw_plan* plan;
+  void LoadInput(Local<Array> data);
+  fftw_plan plan;
   fftw_complex* in;
   fftw_complex* out;
+  int size;
   bool executed;
 };
 

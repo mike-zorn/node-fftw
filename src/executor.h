@@ -11,13 +11,13 @@ class Executor : public NanAsyncWorker {
         NanCallback *callback, 
         fftw_complex* in, 
         fftw_complex* out, 
-        fftw_plan* plan,
+        fftw_plan plan,
         int size);
     ~Executor();  
     void Execute();
 
   private:
-    fftw_plan* plan;
+    fftw_plan plan;
     fftw_complex* in;
     fftw_complex* out;
     int size;
