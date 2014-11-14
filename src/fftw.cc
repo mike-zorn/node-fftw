@@ -25,6 +25,30 @@ int GetSign(Local<Object> opts) {
   }
 }
 
+unsigned GetRigor(Local<Object> opts) {
+  std::string rigor(*String::Utf8Value(opts->Get
+        (NanNew<String>("rigor"))));
+
+  if(rigor == "estimate") {
+    return FFTW_ESTIMATE;
+  }
+  else if(rigor == "measure") {
+    return FFTW_MEASURE;
+  }
+  else if(rigor == "patient") {
+    return FFTW_PATIENT;
+  }
+  else if(rigor == "exhaustive") {
+    return FFTW_EXHAUSTIVE;
+  }
+  else if(rigor == "") {
+    return FFTW_MEASURE;
+  }
+  else {
+    //TODO throw something
+  }
+}
+
 
 NAN_METHOD(PlanDft1d) {
   NanScope();
@@ -35,14 +59,13 @@ NAN_METHOD(PlanDft1d) {
   NanCallback* nanCallback = new NanCallback(callback);
 
   int size = opts->Get(NanNew<String>("size")).As<Number>()->Value();
-
   int sign = GetSign(opts);
+  unsigned flags = GetRigor(opts);
 
   PlannerDft1d* planner = new PlannerDft1d(nanCallback, 
       size, 
       sign, 
-      //TODO don't hard code these
-      FFTW_ESTIMATE);
+      flags);
   
   NanAsyncQueueWorker(planner);
 

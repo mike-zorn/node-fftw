@@ -19,7 +19,10 @@ test('1d dft all ones', function(t) {
 
 test('1d dft all ones with reused plan', function(t) {
   t.plan(8);
-  fftw.plan_dft_1d({ size: 4 }, function(err, plan) {
+  fftw.plan_dft_1d({ 
+    size: 4,
+    rigor: 'patient'
+  }, function(err, plan) {
     plan.execute([1, 1, 1, 1], function(err, result, plan) {
       plan.execute([1, 1, 1, 1], function(err, result, plan) {
         t.equal(result[0].real, 4);
