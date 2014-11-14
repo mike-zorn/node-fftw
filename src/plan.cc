@@ -14,7 +14,9 @@ Plan::Plan() :
 
 Plan::~Plan() {
   if(!executed) {
-    //TODO destroy plan and free memory
+    fftw_destroy_plan(this->plan);
+    fftw_free(this->in);
+    fftw_free(this->out);
   }
 }
 
