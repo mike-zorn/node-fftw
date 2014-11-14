@@ -1,10 +1,29 @@
 #include <nan.h>
 #include <fftw3.h>
+#include <string>
 #include "complex.h"
 #include "plan.h"
 #include "planner_dft_1d.h"
 
 using namespace v8;
+
+int GetSign(Local<Object> opts) {
+  std::string sign(*String::Utf8Value(opts->Get
+        (NanNew<String>("sign"))));
+
+  if(sign == "backward") {
+    return FFTW_BACKWARD;
+  }
+  else if(sign == "forward") {
+    return FFTW_FORWARD;
+  }
+  else if(sign == "") {
+    return FFTW_FORWARD;
+  }
+  else {
+    //TODO throw something
+  }
+}
 
 
 NAN_METHOD(PlanDft1d) {
@@ -17,10 +36,12 @@ NAN_METHOD(PlanDft1d) {
 
   int size = opts->Get(NanNew<String>("size")).As<Number>()->Value();
 
+  int sign = GetSign(opts);
+
   PlannerDft1d* planner = new PlannerDft1d(nanCallback, 
       size, 
+      sign, 
       //TODO don't hard code these
-      FFTW_FORWARD, 
       FFTW_ESTIMATE);
   
   NanAsyncQueueWorker(planner);
