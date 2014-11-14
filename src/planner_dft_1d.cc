@@ -26,7 +26,7 @@ void PlannerDft1d::Execute() {
 void PlannerDft1d::HandleOKCallback () {
   NanScope();
 
-  Handle<Value> arguments [2] = { Null(), NanNew<Plan>(
+  Handle<Value> arguments [2] = { Null(), Plan::NewInstance(
       this->in, 
       this->out, 
       this->plan,

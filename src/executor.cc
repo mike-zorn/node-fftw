@@ -1,6 +1,8 @@
 #include <nan.h>
 #include <fftw3.h>
 #include "executor.h"
+#include "complex.h"
+#include "plan.h"
 
 using namespace v8;
 
@@ -20,8 +22,8 @@ Executor::Executor(
 Executor::~Executor() {
 }
 
-void Execute() {
-  fftw_execute(plan);
+void Executor::Execute() {
+  fftw_execute(this->plan);
 }
   
 void Executor::HandleOKCallback () {
@@ -37,7 +39,7 @@ void Executor::HandleOKCallback () {
     );
   }
 
-  Handle<Value> arguments [3] = { Null(), result, NanNew<Plan>(
+  Handle<Value> arguments [3] = { Null(), result, Plan::NewInstance(
       this->in, 
       this->out, 
       this->plan,
