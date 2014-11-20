@@ -28,6 +28,7 @@ void Plan::Init() {
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
   NODE_SET_PROTOTYPE_METHOD(tpl, "execute", Plan::Execute);
 
+  //TODO hello world
 }
 
 void Plan::LoadInput(Local<Array> data) {

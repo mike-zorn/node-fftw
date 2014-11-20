@@ -28,3 +28,4 @@ void X(execute_split_dft_c2r)(const X(plan) p, R *ri, R *ii, R *out)
      problem_rdft2 *prb = (problem_rdft2 *) p->prb;
      pln->apply((plan *) pln, out, out + (prb->r1 - prb->r0), ri, ii);
 }
+//TODO shouldn't be there
