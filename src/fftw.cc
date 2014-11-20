@@ -42,11 +42,12 @@ unsigned GetRigor(Local<Object> opts) {
   else if(rigor == "exhaustive") {
     return FFTW_EXHAUSTIVE;
   }
-  else if(rigor == "") {
+  else if(rigor == "undefined" || rigor == "null" || rigor == "") {
     return FFTW_MEASURE;
   }
   else {
-    //TODO throw something
+    NanThrowRangeError(
+        "sign must be one of estimate, measure, patient or exhaustive");
   }
 }
 

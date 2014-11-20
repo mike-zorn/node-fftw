@@ -91,3 +91,10 @@ test('should throw RangeError for invalid sign', function(t) {
     fftw.plan_dft_1d.bind(fftw, { size: 5, sign: 'dasdsa' }, noop),
     /sign must be one of backward or forward/);
 });
+
+test('should throw RangeError for invalid rigor', function(t) {
+  t.plan(1);
+  t.throws(
+    fftw.plan_dft_1d.bind(fftw, { size: 5, rigor: 'dasdsa' }, noop),
+    /sign must be one of estimate, measure, patient or exhaustive/);
+});
