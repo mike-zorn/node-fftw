@@ -98,3 +98,13 @@ test('should throw RangeError for invalid rigor', function(t) {
     fftw.plan_dft_1d.bind(fftw, { size: 5, rigor: 'dasdsa' }, noop),
     /sign must be one of estimate, measure, patient or exhaustive/);
 });
+
+test('should throw when plan is executed multiple times', function(t) {
+  t.plan(1);
+  fftw.plan_dft_1d( { size: 5 }, function(err, plan) {
+    t.throws(function() {
+      plan.execute([1, 1, 1, 1, 1], noop);
+      plan.execute([1, 1, 1, 1, 1], noop);
+    }, /plan may only be executed once/);
+  });
+});

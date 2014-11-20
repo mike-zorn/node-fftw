@@ -105,6 +105,6 @@ NAN_METHOD(Plan::Execute) {
     NanReturnUndefined();
   }
   else {
-    //TODO throw something
+    NanThrowError("plan may only be executed once");
   }
 }
