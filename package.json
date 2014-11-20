@@ -19,6 +19,7 @@
   "gypfile": true,
   "devDependencies": {
     "async": "^0.9.0",
+    "lodash.noop": "^2.4.1",
     "tape": "^3.0.0"
   }
 }

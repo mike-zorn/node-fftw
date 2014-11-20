@@ -1,6 +1,7 @@
 var fftw = require('./index');
 var test = require('tape');
 var async = require('async');
+var noop = require('lodash.noop');
 
 test('1d dft all ones', function(t) {
   t.plan(10);
@@ -85,7 +86,8 @@ test('1d forward reverse all ones', function(t) {
 });
 
 test('should throw RangeError for invalid sign', function(t) {
+  t.plan(1);
   t.throws(
-    fftw.plan_dft_1d.bind(fftw, { size: 5, sign: 'dasdsa' }),
+    fftw.plan_dft_1d.bind(fftw, { size: 5, sign: 'dasdsa' }, noop),
     /sign must be one of backward or forward/);
 });

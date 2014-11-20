@@ -4,6 +4,7 @@
 #include "complex.h"
 #include "plan.h"
 #include "planner_dft_1d.h"
+#include <iostream>
 
 using namespace v8;
 
@@ -17,7 +18,7 @@ int GetSign(Local<Object> opts) {
   else if(sign == "forward") {
     return FFTW_FORWARD;
   }
-  else if(sign == "") {
+  else if(sign == "undefined" || sign == "null" || sign == "") {
     return FFTW_FORWARD;
   }
   else {
