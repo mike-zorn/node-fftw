@@ -13,9 +13,9 @@ Executor::Executor(
     fftw_plan plan,
     int size) 
 : NanAsyncWorker(callback), 
+  plan(plan), 
   in(in), 
   out(out), 
-  plan(plan), 
   size(size)
 { }
 
@@ -46,7 +46,3 @@ void Executor::HandleOKCallback () {
       this->size) };
   callback->Call(3, arguments);
 }
-
-
-//TODO HandleNotOKCallback ? need to return a new plan to handle memory
-//management correctly

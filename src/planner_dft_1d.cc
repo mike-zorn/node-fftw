@@ -33,6 +33,3 @@ void PlannerDft1d::HandleOKCallback () {
       this->size) };
   callback->Call(2, arguments);
 }
-
-
-//TODO HandleNotOKCallback ?
