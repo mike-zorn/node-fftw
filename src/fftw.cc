@@ -21,7 +21,7 @@ int GetSign(Local<Object> opts) {
     return FFTW_FORWARD;
   }
   else {
-    //TODO throw something
+    NanThrowRangeError("sign must be one of backward or forward");
   }
 }
 

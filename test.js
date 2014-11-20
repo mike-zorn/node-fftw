@@ -83,3 +83,9 @@ test('1d forward reverse all ones', function(t) {
     }
   );
 });
+
+test('should throw RangeError for invalid sign', function(t) {
+  t.throws(
+    fftw.plan_dft_1d.bind(fftw, { size: 5, sign: 'dasdsa' }),
+    /sign must be one of backward or forward/);
+});
