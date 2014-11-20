@@ -23,6 +23,8 @@ int GetSign(Local<Object> opts) {
   }
   else {
     NanThrowRangeError("sign must be one of backward or forward");
+    // The following should never get executed
+    return 0;
   }
 }
 
@@ -48,6 +50,8 @@ unsigned GetRigor(Local<Object> opts) {
   else {
     NanThrowRangeError(
         "sign must be one of estimate, measure, patient or exhaustive");
+    // The following should never get executed
+    return 0;
   }
 }
 
