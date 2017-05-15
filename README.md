@@ -1,6 +1,8 @@
 FFTW for node.js
 ================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/apechimp/node-fftw.svg)](https://greenkeeper.io/)
+
 Linux Build | Windows Build
 ------------|--------------|
 [![Build Status](https://travis-ci.org/apechimp/node-fftw.svg?branch=master)](https://travis-ci.org/apechimp/node-fftw) |[![Build status](https://ci.appveyor.com/api/projects/status/8u6ghatt9gkvj5go/branch/master?svg=true)](https://ci.appveyor.com/project/apechimp/node-fftw/branch/master)
